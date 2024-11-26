@@ -1,0 +1,17 @@
+{
+    "name": "storessuite/wix",
+    "description": "Wix integration for Laravel apps.",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Storessuite\\Wix\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Saroj Kala Magar",
+            "email": "sarojkalamagar@gmail.com"
+        }
+    ],
+    "require": {}
+}
