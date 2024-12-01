@@ -1,0 +1,31 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use StoresSuite\Models\WixSite;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('wix_access_tokens', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(WixSite::class);
+            $table->text('access_token');
+            $table->dateTime('expired_at');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('wix_access_tokens');
+    }
+};

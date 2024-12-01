@@ -4,7 +4,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Storessuite\\Wix\\": "src/"
+            "StoresSuite\\Wix\\": "src/"
         }
     },
     "authors": [
@@ -13,5 +13,7 @@
             "email": "sarojkalamagar@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "illuminate/database": "^11.33"
+    }
 }
