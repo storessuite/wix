@@ -1,13 +1,13 @@
 <?php
 
-namespace StoresSuite;
+namespace StoresSuite\Wix;
 
 use Illuminate\Support\Facades\Crypt;
-use StoresSuite\Models\WixAccessToken;
-use StoresSuite\Models\WixProduct;
-use StoresSuite\Models\WixSite;
-use StoresSuite\Traits\RefreshesWixAccessToken;
-use StoresSuite\WixApi\V1\Catalog;
+use StoresSuite\Wix\Models\WixAccessToken;
+use StoresSuite\Wix\Models\WixProduct;
+use StoresSuite\Wix\Models\WixSite;
+use StoresSuite\Wix\Traits\RefreshesWixAccessToken;
+use StoresSuite\Wix\WixApi\V1\Catalog;
 
 class WixService
 {

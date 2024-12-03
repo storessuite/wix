@@ -1,6 +1,6 @@
 <?php
 
-namespace StoresSuite\WixApi\V1;
+namespace StoresSuite\Wix\WixApi\V1;
 
 use Illuminate\Support\Facades\Http;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace StoresSuite\Models;
+namespace StoresSuite\Wix\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

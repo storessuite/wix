@@ -1,6 +1,6 @@
 <?php
 
-namespace StoresSuite;
+namespace StoresSuite\Wix;
 
 use Illuminate\Support\ServiceProvider;
 

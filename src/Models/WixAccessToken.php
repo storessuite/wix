@@ -1,6 +1,6 @@
 <?php
 
-namespace StoresSuite\Models;
+namespace StoresSuite\Wix\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;

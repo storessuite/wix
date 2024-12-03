@@ -3,8 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use StoresSuite\Models\WixChoice;
-use StoresSuite\Models\WixVariant;
+use StoresSuite\Wix\Models\WixChoice;
+use StoresSuite\Wix\Models\WixVariant;
 
 return new class extends Migration
 {

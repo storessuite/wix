@@ -1,13 +1,13 @@
 <?php
 
-namespace StoresSuite\Traits;
+namespace StoresSuite\Wix\Traits;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Config;
-use StoresSuite\Enums\AccessTokenValidity;
-use StoresSuite\Models\WixAccessToken;
-use StoresSuite\Models\WixSite;
-use StoresSuite\WixApi\V1\Oauth;
+use StoresSuite\Wix\Enums\AccessTokenValidity;
+use StoresSuite\Wix\Models\WixAccessToken;
+use StoresSuite\Wix\Models\WixSite;
+use StoresSuite\Wix\WixApi\V1\Oauth;
 
 trait RefreshesWixAccessToken
 {

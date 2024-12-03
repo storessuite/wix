@@ -1,6 +1,6 @@
 <?php
 
-namespace StoresSuite\Enums;
+namespace StoresSuite\Wix\Enums;
 
 enum InventoryStatus: string
 {
