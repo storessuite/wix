@@ -21,7 +21,6 @@
         }
     },
     "require": {
-        "illuminate/database": "^11.33",
-        "illuminate/bus": "^11.34"
+        "illuminate/database": "^11.33"
     }
 }
