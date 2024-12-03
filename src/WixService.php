@@ -2,6 +2,7 @@
 
 namespace StoresSuite;
 
+use Illuminate\Support\Facades\Crypt;
 use StoresSuite\Models\WixAccessToken;
 use StoresSuite\Models\WixProduct;
 use StoresSuite\Models\WixSite;
@@ -32,7 +33,7 @@ class WixService
         if ($this->wixSite && $this->wixAccessToken) return $this;
 
        $this->wixSite = WixSite::query()->where('_id', $_id)->firstOrFail();
-       $this->refreshAccessToken($this->wixSite);
+       $this->wixAccessToken = $this->refreshAccessToken($this->wixSite);
 
         return $this;
     }
@@ -45,6 +46,6 @@ class WixService
      */
     public function importProduct(string $_id): WixProduct
     {
-        $apiResponse = $this->catalog->getProduct($this->accessToken, $_id);
+        $apiResponse = $this->catalog->getProduct(Crypt::decrypt($this->wixAccessToken->access_token), $_id);
     }
 }
