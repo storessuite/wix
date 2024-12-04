@@ -14,7 +14,7 @@
         }
     ],
     "extra": {
-        "Laravel": {
+        "laravel": {
             "providers": [
                 "StoresSuite\\Wix\\WixServiceProvider"
             ]
