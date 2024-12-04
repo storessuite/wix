@@ -6,12 +6,13 @@ use Illuminate\Support\Facades\Crypt;
 use StoresSuite\Wix\Models\WixAccessToken;
 use StoresSuite\Wix\Models\WixProduct;
 use StoresSuite\Wix\Models\WixSite;
+use StoresSuite\Wix\Traits\ProductParser;
 use StoresSuite\Wix\Traits\RefreshesWixAccessToken;
 use StoresSuite\Wix\WixApi\V1\Catalog;
 
 class WixService
 {
-    use RefreshesWixAccessToken;
+    use RefreshesWixAccessToken, ProductParser;
 
     private WixSite $wixSite;
     private WixAccessToken $wixAccessToken;
@@ -25,15 +26,20 @@ class WixService
     /**
      * Set site
      *
-     * @param string $_id
+     * @param string|WixSite $wixSite
      * @return \StoresSuite\WixService
      */
-    public function site(string $_id): WixService
+    public function site(string|WixSite $wixSite): WixService
     {
         if ($this->wixSite && $this->wixAccessToken) return $this;
 
-       $this->wixSite = WixSite::query()->where('_id', $_id)->firstOrFail();
-       $this->wixAccessToken = $this->refreshAccessToken($this->wixSite);
+        if ($wixSite instanceof WixSite) {
+            $this->wixSite = $wixSite;
+        } else {
+            $this->wixSite = WixSite::query()->where('_id', $wixSite)->firstOrFail();
+        }
+
+        $this->wixAccessToken = $this->refreshAccessToken($this->wixSite);
 
         return $this;
     }
@@ -41,11 +47,13 @@ class WixService
     /**
      * Import product
      * 
-     * @param string $_id Wix product ID
-     * @return \StoresSuite\Models\WixProduct
+     * @param string|WixProduct $wixProduct
+     * @return void 
      */
-    public function importProduct(string $_id): WixProduct
+    public function importProduct(string|WixProduct $wixProduct): void
     {
+        $_id = $wixProduct instanceof WixProduct ? $wixProduct->_id : $wixProduct;
         $apiResponse = $this->catalog->getProduct(Crypt::decrypt($this->wixAccessToken->access_token), $_id);
+        $this->parseProduct($apiResponse);
     }
 }
