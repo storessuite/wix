@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('wix_collection_wix_product');
+        Schema::dropIfExists('wix_choice_wix_variant');
     }
 };
