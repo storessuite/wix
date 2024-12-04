@@ -11,7 +11,7 @@ class WixServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(WixService::class, WixService::class);
+        $this->app->singleton(WixService::class, WixService::class);
         $this->mergeConfigFrom(__DIR__ . '/config/wix.php', 'wix');
         $this->publishes([
             __DIR__ . '/config/wix.php' => $this->app->configPath('wix.php')
