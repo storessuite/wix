@@ -54,6 +54,6 @@ class WixService
     {
         $_id = $wixProduct instanceof WixProduct ? $wixProduct->_id : $wixProduct;
         $apiResponse = $this->catalog->getProduct(Crypt::decrypt($this->wixAccessToken->access_token), $_id);
-        $this->parseProduct($apiResponse);
+        $this->parseProduct($apiResponse['product']);
     }
 }
