@@ -13,11 +13,16 @@ class WixServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(Wix::class, WixService::class);
+    }
+
+    /**
+     * Bootstrap package services
+     */
+    public function boot(){
         $this->mergeConfigFrom(__DIR__ . '/config/wix.php', 'wix');
         $this->publishes([
             __DIR__ . '/config/wix.php' => $this->app->configPath('wix.php')
         ], 'config');
-
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
     }
 }
