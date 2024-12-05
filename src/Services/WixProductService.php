@@ -2,4 +2,9 @@
 
 namespace StoresSuite\Wix\Services;
 
-class WixProductService {}
+use StoresSuite\Wix\Models\WixSite;
+
+class WixProductService
+{
+    public function fetch(WixSite $wixSite) {}
+}
