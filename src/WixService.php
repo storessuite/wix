@@ -54,6 +54,10 @@ class WixService
     {
         $_id = $wixProduct instanceof WixProduct ? $wixProduct->_id : $wixProduct;
         $apiResponse = $this->catalog->getProduct(Crypt::decrypt($this->wixAccessToken->access_token), $_id);
-        $this->parseProduct($apiResponse['product']);
+        $wixProductData = $this->parseProduct($apiResponse);
+        WixProduct::updateOrCreate([
+            '_id' => $_id,
+            'wix_site_id' => $this->wixSite->id
+        ], $wixProductData);
     }
 }
