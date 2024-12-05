@@ -7,24 +7,13 @@ use StoresSuite\Wix\Services\WixSiteService;
 
 class Wix
 {
-    private $wixSiteService;
-    private $wixProductService;
-
-    public function __construct() {}
-
-    public function site(): Wix
+    public static function site(): WixSiteService
     {
-        if (!$this->wixSiteService)
-            $this->wixSiteService = new WixSiteService();
-
-        return $this->wixSiteService;
+        return new WixSiteService();
     }
 
-    public function product(): Wix
+    public static function product(): WixProductService
     {
-        if (!$this->wixProductService)
-            $this->wixProductService = new WixProductService();
-
-        return $this->wixProductService;
+        return new WixProductService();
     }
 }

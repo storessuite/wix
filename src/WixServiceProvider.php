@@ -9,10 +9,7 @@ class WixServiceProvider extends ServiceProvider
     /**
      * Register services
      */
-    public function register()
-    {
-        $this->app->bind('wix', Wix::class);
-    }
+    public function register() {}
 
     /**
      * Bootstrap package services

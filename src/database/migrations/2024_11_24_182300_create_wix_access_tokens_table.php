@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('wix_access_tokens', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(WixSite::class);
+            $table->foreignIdFor(WixSite::class)->nullable();
             $table->text('access_token');
             $table->dateTime('expired_at');
             $table->timestamps();
