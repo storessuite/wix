@@ -12,7 +12,7 @@ class WixServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(Wix::class, WixService::class);
+        $this->app->bind('wix', Wix::class);
     }
 
     /**
