@@ -45,6 +45,8 @@ return new class extends Migration
             $table->integer('stock_quantity')->nullable();
             $table->boolean('stock_inStock')->nullable();
             $table->timestamps();
+            $table->foreign('wix_site_id')->references('id')->on('wix_sites');
+            $table->foreign('wix_product_id')->references('id')->on('wix_products');
         });
     }
 

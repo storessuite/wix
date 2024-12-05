@@ -22,6 +22,8 @@ return new class extends Migration
             $table->integer('quantity')->nullable();
             $table->boolean('availableForPreorder')->nullable();
             $table->timestamps();
+            $table->foreign('wix_site_id')->references('id')->on('wix_sites');
+            $table->foreign('wix_inventory_id')->references('id')->on('wix_inventories');
         });
     }
 

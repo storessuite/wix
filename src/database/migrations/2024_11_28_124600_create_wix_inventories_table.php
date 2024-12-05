@@ -27,6 +27,8 @@ return new class extends Migration
             $table->string('preorderInfo_message')->nullable();
             $table->unsignedInteger('preorderInfo_limit')->nullable();
             $table->timestamps();
+            $table->foreign('wix_site_id')->references('id')->on('wix_sites');
+            $table->foreign('wix_product_id')->references('id')->on('wix_products');
         });
     }
 

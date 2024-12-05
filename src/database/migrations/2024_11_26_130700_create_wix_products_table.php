@@ -88,6 +88,7 @@ return new class extends Migration
             $table->string('ribbon')->nullable();
             $table->string('brand')->nullable();
             $table->timestamps();
+            $table->foreign('wix_site_id')->references('id')->on('wix_sites');
         });
     }
 

@@ -22,6 +22,8 @@ return new class extends Migration
             $table->boolean('custom')->nullable();
             $table->boolean('disabled')->nullable();
             $table->timestamps();
+            $table->foreign('wix_site_id')->references('id')->on('wix_sites');
+            $table->foreign('wix_product_id')->references('id')->on('wix_products');
         });
     }
 

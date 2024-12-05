@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('wix_collection_wix_media', function (Blueprint $table) {
             $table->foreignIdFor(WixCollection::class);
             $table->foreignIdFor(WixMedia::class);
+            $table->foreign('wix_collection_id')->references('id')->on('wix_collections');
+            $table->foreign('wix_media_id')->references('id')->on('wix_media');
         });
     }
 

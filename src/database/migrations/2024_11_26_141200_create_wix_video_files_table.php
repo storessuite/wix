@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('format')->nullable();
             $table->string('altText')->nullable();
             $table->timestamps();
+            $table->foreign('wix_site_id')->references('id')->on('wix_sites');
+            $table->foreign('wix_media_id')->references('id')->on('wix_media');
         });
     }
 

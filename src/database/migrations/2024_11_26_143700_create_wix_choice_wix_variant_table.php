@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('wix_choice_wix_variant', function (Blueprint $table) {
             $table->foreignIdFor(WixChoice::class);
             $table->foreignIdFor(WixVariant::class);
+            $table->foreign('wix_choice_id')->references('id')->on('wix_choices');
+            $table->foreign('wix_variant_id')->references('id')->on('wix_variants');
         });
     }
 

@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('wix_collection_wix_product', function (Blueprint $table) {
             $table->foreignIdFor(WixCollection::class);
             $table->foreignIdFor(WixProduct::class);
+            $table->foreign('wix_collection_id')->references('id')->on('wix_collections');
+            $table->foreign('wix_product_id')->references('id')->on('wix_products');
         });
     }
 

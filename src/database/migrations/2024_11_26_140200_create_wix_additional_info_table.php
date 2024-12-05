@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
+            $table->foreign('wix_site_id')->references('id')->on('wix_sites');
+            $table->foreign('wix_product_id')->references('id')->on('wix_products');
         });
     }
 

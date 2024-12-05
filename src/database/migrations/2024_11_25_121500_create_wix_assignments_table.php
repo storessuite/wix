@@ -26,6 +26,8 @@ return new class extends Migration
             $table->string('subject_context_id')->nullable();
             $table->string('subject_context_contextType')->nullable();
             $table->timestamps();
+            $table->foreign('wix_site_contributor_id')->references('id')->on('wix_site_contributors');
+            $table->foreign('wix_site_id')->references('id')->on('wix_sites');
         });
     }
 

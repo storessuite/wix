@@ -21,6 +21,8 @@ return new class extends Migration
             $table->integer('maxLength')->nullable();
             $table->boolean('mandatory')->nullable();
             $table->timestamps();
+            $table->foreign('wix_site_id')->references('id')->on('wix_sites');
+            $table->foreign('wix_product_id')->references('id')->on('wix_products');
         });
     }
 

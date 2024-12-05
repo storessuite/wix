@@ -36,6 +36,7 @@ return new class extends Migration
             $table->string('slug')->nullable();
             $table->boolean('visible')->nullable(); 
             $table->timestamps();
+            $table->foreign('wix_site_id')->references('id')->on('wix_sites');
         });
     }
 
