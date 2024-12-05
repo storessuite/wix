@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('additional_info', function (Blueprint $table) {
+        Schema::create('wix_additional_info', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignIdFor(WixSite::class);
             $table->foreignIdFor(WixProduct::class);
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('additional_info');
+        Schema::dropIfExists('wix_additional_info');
     }
 };

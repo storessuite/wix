@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class WixAdditionalInfo extends Model
 {
-    protected $table = 'additional_info';
+    protected $table = 'wix_additional_info';
 
     protected $fillable = [
         'wix_product_id',
