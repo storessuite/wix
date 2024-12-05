@@ -3,7 +3,6 @@
 namespace StoresSuite\Wix;
 
 use Illuminate\Support\ServiceProvider;
-use StoresSuite\Wix\Facades\Wix;
 
 class WixServiceProvider extends ServiceProvider
 {
