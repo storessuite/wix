@@ -3,8 +3,6 @@
 namespace StoresSuite\Wix;
 
 use Illuminate\Support\ServiceProvider;
-use StoresSuite\Wix\Facades\Wix;
-use StoresSuite\Wix\WixApi\V1\Catalog;
 
 class WixServiceProvider extends ServiceProvider
 {
@@ -13,9 +11,6 @@ class WixServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(Wix::class, function () {
-            return new WixService(new Catalog());
-        });
     }
 
     /**
