@@ -3,6 +3,7 @@
 namespace StoresSuite\Wix;
 
 use Illuminate\Support\ServiceProvider;
+use StoresSuite\Wix\Facades\Wix;
 
 class WixServiceProvider extends ServiceProvider
 {
@@ -11,6 +12,7 @@ class WixServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind(Wix::class, WixService::class);
     }
 
     /**
