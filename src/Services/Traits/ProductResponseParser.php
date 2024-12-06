@@ -1,8 +1,8 @@
 <?php
 
-namespace StoresSuite\Wix\Traits;
+namespace StoresSuite\Wix\Services\Traits;
 
-trait ProductParser
+trait ProductResponseParser
 {
     public $keyMapping = [
         '_id' => 'id',
@@ -77,7 +77,7 @@ trait ProductParser
         $parsedData = [];
 
         foreach ($this->keyMapping as $key => $value) {
-            $parsedData[$key] = data_get($productData['product'], $value);
+            $parsedData[$key] = data_get($productData, $value);
         }
 
         return $parsedData;
