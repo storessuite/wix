@@ -47,5 +47,10 @@ class WixProductService
         return WixProduct::query()->create($wixProductDetails);
     }
 
+    public function update(WixProduct $wixProduct, array $wixProductDetails): bool
+    {
+        return $wixProduct->update($wixProductDetails);
+    }
+
     public function delete(WixProduct $wixProduct): bool {}
 }
