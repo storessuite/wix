@@ -122,7 +122,7 @@ class WixSite extends Model
 
     public function accessToken(): HasOne
     {
-        return $this->accessTokens()->orderBy('expires_at', 'DESC')->limit(1);
+        return $this->hasOne(WixAccessToken::class)->orderBy('expires_at', 'DESC');
     }
 
     public function accessTokens(): HasMany
