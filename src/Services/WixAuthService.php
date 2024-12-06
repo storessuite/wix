@@ -4,6 +4,7 @@ namespace StoresSuite\Wix\Services;
 
 use StoresSuite\Wix\Models\WixAccessToken;
 use StoresSuite\Wix\Models\WixRefreshToken;
+use StoresSuite\Wix\Models\WixSite;
 
 class WixAuthService
 {
@@ -16,4 +17,8 @@ class WixAuthService
     {
         return WixAccessToken::query()->create($tokenDetails);
     }
+
+    public function refreshToken(WixSite $wixSite) {}
+
+    public function generateToken(string $authorizationCode) {}
 }

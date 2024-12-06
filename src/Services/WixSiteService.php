@@ -10,4 +10,6 @@ class WixSiteService
     {
         return WixSite::query()->create($wixSiteDetails);
     }
+
+    public function fetch(WixSite $wixSite): WixSite {}
 }
