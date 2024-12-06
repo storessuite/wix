@@ -29,5 +29,14 @@ class Catalog
         return Http::withHeaders($headers)->get($endPoint)->json();
     }
 
-    public function queryProducts(string $accessToken): array {}
+    public function queryProducts(string $accessToken): array
+    {
+        $endPoint = 'https://www.wixapis.com/stores-reader/v1/products/query';
+        $headers = [
+            'Content-Type' => 'application/json',
+            'Authorization' => $accessToken
+        ];
+
+        return Http::withHeaders($headers)->post($endPoint)->json();
+    }
 }
