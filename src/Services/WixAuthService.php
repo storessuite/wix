@@ -4,6 +4,7 @@ namespace StoresSuite\Wix\Services;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Crypt;
 use StoresSuite\Wix\Enums\AccessTokenValidity;
 use StoresSuite\Wix\Models\WixAccessToken;
 use StoresSuite\Wix\Models\WixRefreshToken;
@@ -22,15 +23,16 @@ class WixAuthService
         return WixAccessToken::query()->create($tokenDetails);
     }
 
-    public function refreshToken(WixSite $wixSite) {
+    public function refreshToken(WixSite $wixSite)
+    {
         if ($wixSite->accessToken->isValidFor(AccessTokenValidity::GRACE_PERIOD_BEFORE_EXPIRY->value)) {
             return $wixSite->accessToken;
         }
 
         $oauthApi = new Oauth();
-        $apiResponse = $oauthApi->refreshAccessToken(Config::get('wix.client_id'), Config::get('wix.client_secret'), $wixSite->refreshToken->refresh_token);
+        $apiResponse = $oauthApi->refreshAccessToken(Config::get('wix.client_id'), Config::get('wix.client_secret'), Crypt::decrypt($wixSite->refreshToken->refresh_token));
         return $wixSite->accessTokens()->create([
-            'access_token' => $apiResponse['access_token'],
+            'access_token' => Crypt::encrypt($apiResponse['access_token']),
             'expired_at' => Carbon::now()->addMinutes(AccessTokenValidity::VALIDITY_PERIOD->value)
         ]);
     }
