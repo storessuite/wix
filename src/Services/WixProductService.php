@@ -16,5 +16,7 @@ class WixProductService
 
     public function fetchUpdated(WixSite $wixSite): Collection {}
 
+    public function create(array $wixProductDetails): WixProduct {}
+
     public function delete(WixProduct $wixProduct): bool {}
 }
