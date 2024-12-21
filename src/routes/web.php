@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use StoresSuite\Wix\Controllers\AuthController;
 
-Route::get("wix/oauth/redirect", [WixOauthController::class, "redirect"]);
-Route::get("wix/oauth/token", [WixOauthController::class, "token"]);
+Route::get("wix/oauth/redirect", [AuthController::class, "redirect"]);
+Route::get("wix/oauth/token", [AuthController::class, "token"]);

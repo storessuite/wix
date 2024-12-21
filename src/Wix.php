@@ -5,6 +5,7 @@ namespace StoresSuite\Wix;
 use StoresSuite\Wix\Services\WixAppService;
 use StoresSuite\Wix\Services\WixAuthService;
 use StoresSuite\Wix\Services\WixCollectionService;
+use StoresSuite\Wix\Services\WixInstanceService;
 use StoresSuite\Wix\Services\WixInventoryService;
 use StoresSuite\Wix\Services\WixProductService;
 use StoresSuite\Wix\Services\WixSiteService;
@@ -12,6 +13,11 @@ use StoresSuite\Wix\Services\WixVariantService;
 
 class Wix
 {
+    public static function instance(): WixInstanceService
+    {
+        return new WixInstanceService();
+    }
+
     public static function site(): WixSiteService
     {
         return new WixSiteService();

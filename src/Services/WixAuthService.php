@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Crypt;
 use StoresSuite\Wix\Enums\AccessTokenValidity;
+use StoresSuite\Wix\Exceptions\APIException;
 use StoresSuite\Wix\Models\WixAccessToken;
 use StoresSuite\Wix\Models\WixRefreshToken;
 use StoresSuite\Wix\Models\WixSite;
@@ -13,29 +14,63 @@ use StoresSuite\Wix\WixApi\V1\Oauth;
 
 class WixAuthService
 {
-    public function saveRefreshToken(array $tokenDetails)
+    /**
+     * Save refresh token
+     *
+     * @param array $tokenDetails
+     * @return WixRefreshToken
+     */
+    public function saveRefreshToken(array $tokenDetails): WixRefreshToken
     {
         return WixRefreshToken::query()->create($tokenDetails);
     }
 
-    public function saveAccessToken(array $tokenDetails)
+    /**
+     * Save access token
+     *
+     * @param array $tokenDetails
+     * @return WixAccessToken
+     */
+    public function saveAccessToken(array $tokenDetails): WixAccessToken
     {
         return WixAccessToken::query()->create($tokenDetails);
     }
 
-    public function refreshToken(WixSite $wixSite)
+    /**
+     * Refresh token
+     *
+     * @param WixSite $wixSite
+     * @param Oauth $oauthApi
+     * @return WixAccessToken
+     * @throws APIException
+     */
+    public function refreshToken(WixSite $wixSite, Oauth $oauthApi): WixAccessToken
     {
-        if ($wixSite->accessToken->isValidFor(AccessTokenValidity::GRACE_PERIOD_BEFORE_EXPIRY->value)) {
+        if ($wixSite->accessToken->isValidFor(AccessTokenValidity::GRACE_PERIOD_BEFORE_EXPIRY)) {
             return $wixSite->accessToken;
         }
 
-        $oauthApi = new Oauth();
-        $apiResponse = $oauthApi->refreshAccessToken(Config::get('wix.client_id'), Config::get('wix.client_secret'), Crypt::decrypt($wixSite->refreshToken->refresh_token));
+        $apiResponse = $oauthApi->refreshAccessToken(
+            Config::get('wix.client_id'),
+            Config::get('wix.client_secret'),
+            Crypt::decrypt($wixSite->refreshToken->refresh_token)
+        );
+
+        if ($apiResponse['access_token'] ?? false) {
+            throw new APIException();
+        }
+
         return $wixSite->accessTokens()->create([
             'access_token' => Crypt::encrypt($apiResponse['access_token']),
             'expired_at' => Carbon::now()->addMinutes(AccessTokenValidity::VALIDITY_PERIOD->value)
         ]);
     }
 
-    public function generateToken(string $authorizationCode) {}
+    /**
+     * Generate token
+     *
+     * @param string $authorizationCode
+     * @return array
+     */
+    public function generateToken(string $authorizationCode): array {}
 }

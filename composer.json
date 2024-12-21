@@ -22,7 +22,8 @@
         }
     },
     "require": {
-        "illuminate/database": "^11.33"
+        "illuminate/database": "^11.33",
+        "illuminate/routing": "^11.36"
     },
     "minimum-stability": "stable"
 }
