@@ -43,7 +43,7 @@ class AuthController extends Controller
         $wixAccessToken->setOwner($wixSite);
 
         if ($request->state) {
-            return $bridge->handleInstallation($wixSite);
+            return $bridge->handleInstallation($wixSite, $request->state);
         }
 
         return $wix->app()->closeWindow($wixAccessToken);
