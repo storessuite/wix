@@ -5,22 +5,19 @@ namespace StoresSuite\Wix\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Redirect;
 use StoresSuite\Wix\Contracts\Bridge;
-use StoresSuite\Wix\Models\WixSite;
 use StoresSuite\Wix\Wix;
 
 class AuthController extends Controller
 {
     /**
-     * Initiate app installation
+     * App URL handler
      *
      * @param Request $request
      * @param Wix $wix
      * @return RedirectResponse
      */
-    public function initiate(Request $request, Wix $wix): RedirectResponse
+    public function app(Request $request, Wix $wix): RedirectResponse
     {
         return $wix->app()->redirectToInstallationPage($request->token, $request->state);
     }
