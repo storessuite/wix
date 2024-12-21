@@ -1,6 +1,5 @@
 {
     "name": "storessuite/wix",
-    "version": "0.0.4",
     "description": "Wix integration for Laravel apps.",
     "license": "MIT",
     "autoload": {
