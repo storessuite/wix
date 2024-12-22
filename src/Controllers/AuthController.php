@@ -2,10 +2,13 @@
 
 namespace StoresSuite\Wix\Controllers;
 
+use Illuminate\Bus\Dispatcher;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\App;
 use StoresSuite\Wix\Contracts\Bridge;
+use StoresSuite\Wix\Jobs\FetchSite;
 use StoresSuite\Wix\Wix;
 
 class AuthController extends Controller
@@ -42,6 +45,13 @@ class AuthController extends Controller
         if ($request->state) {
             return $bridge->handleInstallation($wixSite, $request->state);
         }
+
+        App::make(Dispatcher::class)
+            ->batch([
+                new FetchSite($wixSite)
+            ])
+            ->onQueue('wix')
+            ->dispatch();
 
         return $wix->app()->closeWindow($wixAccessToken);
     }
