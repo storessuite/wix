@@ -38,7 +38,7 @@ return [
     |
     */
 
-    'redirect_url' => env('WIX_REDIRECT_URL'),
+    'redirect_url' => env('APP_URL') . '/wix/oauth/redirect',
 
     /*
     |--------------------------------------------------------------------------
@@ -49,5 +49,5 @@ return [
     |
     */
 
-    'complete_url' => env('WIX_COMPLETE_URL'),
+    'complete_url' => env('APP_URL') . '/wix/oauth/complete',
 ];
