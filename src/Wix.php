@@ -13,54 +13,43 @@ use StoresSuite\Wix\Services\WixVariantService;
 
 class Wix
 {
-    public function __construct(
-        public WixInstanceService $wixInstanceService,
-        public WixSiteService $wixSiteService,
-        public WixProductService $wixProductService,
-        public WixVariantService $wixVariantService,
-        public WixAuthService $wixAuthService,
-        public WixAppService $wixAppService,
-        public WixCollectionService $wixCollectionService,
-        public WixInventoryService $wixInventoryService,
-    ) {}
-
-    public static function instance(): WixInstanceService
+    public static function instance(WixInstanceService $wixInstanceService): WixInstanceService
     {
-        return self::$wixInstanceService;
+        return $wixInstanceService;
     }
 
-    public static function site(): WixSiteService
+    public static function site(WixSiteService $wixSiteService): WixSiteService
     {
-        return self::$wixSiteService;
+        return $wixSiteService;
     }
 
-    public static function product(): WixProductService
+    public static function product(WixProductService $wixProductService): WixProductService
     {
-        return self::$wixProductService;
+        return $wixProductService;
     }
 
-    public static function variant(): WixVariantService
+    public static function variant(WixVariantService $wixVariantService): WixVariantService
     {
-        return self::$wixVariantService;
+        return $wixVariantService;
     }
 
-    public static function auth(): WixAuthService
+    public static function auth(WixAuthService $wixAuthService): WixAuthService
     {
-        return self::$wixAuthService;
+        return $wixAuthService;
     }
 
-    public static function app(): WixAppService
+    public static function app(WixAppService $wixAppService): WixAppService
     {
-        return self::$wixAppService;
+        return $wixAppService;
     }
 
-    public static function collection(): WixCollectionService
+    public static function collection(WixCollectionService $wixCollectionService): WixCollectionService
     {
-        return self::$wixCollectionService;
+        return $wixCollectionService;
     }
 
-    public static function inventory(): WixInventoryService
+    public static function inventory(WixInventoryService $wixInventoryService): WixInventoryService
     {
-        return self::$wixInventoryService;
+        return $wixInventoryService;
     }
 }
