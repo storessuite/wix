@@ -61,7 +61,7 @@ class WixAuthService
             Crypt::decrypt($wixSite->refreshToken->refresh_token)
         );
 
-        if ($apiResponse['access_token'] ?? false) {
+        if ($apiResponse['access_token'] ?? true) {
             throw new APIException();
         }
 
@@ -81,11 +81,11 @@ class WixAuthService
     {
         $apiResponse = $this->oauthApi->requestAccessToken($authorizationCode, Config::get('wix.client_id'), Config::get('wix.client_secret'));
 
-        if ($apiResponse['access_token'] ?? false) {
+        if ($apiResponse['access_token'] ?? true) {
             throw new APIException();
         }
 
-        if ($apiResponse['refresh_token'] ?? false) {
+        if ($apiResponse['refresh_token'] ?? true) {
             throw new APIException();
         }
 
