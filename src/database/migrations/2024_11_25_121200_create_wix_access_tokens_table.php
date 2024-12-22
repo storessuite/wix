@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(WixSite::class)->nullable();
             $table->text('access_token');
-            $table->dateTime('expired_at');
+            $table->dateTime('expired_at')->nullable();
             $table->timestamps();
             $table->foreign('wix_site_id')->references('id')->on('wix_sites');
         });

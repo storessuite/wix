@@ -13,9 +13,7 @@ class WixAccessToken extends Model
     protected $fillable = [
         'wix_site_id',
         'access_token',
-        'token_type',
-        'expires_in',
-        'expires_at'
+        'expired_at'
     ];
 
     public function site(): BelongsTo
