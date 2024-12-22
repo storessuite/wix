@@ -13,43 +13,54 @@ use StoresSuite\Wix\Services\WixVariantService;
 
 class Wix
 {
-    public function instance(WixInstanceService $wixInstanceService): WixInstanceService
+    public function __construct(
+        public WixInstanceService $wixInstanceService,
+        public WixSiteService $wixSiteService,
+        public WixProductService $wixProductService,
+        public WixVariantService $wixVariantService,
+        public WixAuthService $wixAuthService,
+        public WixAppService $wixAppService,
+        public WixCollectionService $wixCollectionService,
+        public WixInventoryService $wixInventoryService,
+    ) {}
+
+    public function instance(): WixInstanceService
     {
-        return $wixInstanceService;
+        return $this->wixInstanceService;
     }
 
-    public function site(WixSiteService $wixSiteService): WixSiteService
+    public function site(): WixSiteService
     {
-        return $wixSiteService;
+        return $this->wixSiteService;
     }
 
-    public function product(WixProductService $wixProductService): WixProductService
+    public function product(): WixProductService
     {
-        return $wixProductService;
+        return $this->wixProductService;
     }
 
-    public function variant(WixVariantService $wixVariantService): WixVariantService
+    public function variant(): WixVariantService
     {
-        return $wixVariantService;
+        return $this->wixVariantService;
     }
 
-    public function auth(WixAuthService $wixAuthService): WixAuthService
+    public function auth(): WixAuthService
     {
-        return $wixAuthService;
+        return $this->wixAuthService;
     }
 
-    public function app(WixAppService $wixAppService): WixAppService
+    public function app(): WixAppService
     {
-        return $wixAppService;
+        return $this->wixAppService;
     }
 
-    public function collection(WixCollectionService $wixCollectionService): WixCollectionService
+    public function collection(): WixCollectionService
     {
-        return $wixCollectionService;
+        return $this->wixCollectionService;
     }
 
-    public function inventory(WixInventoryService $wixInventoryService): WixInventoryService
+    public function inventory(): WixInventoryService
     {
-        return $wixInventoryService;
+        return $this->wixInventoryService;
     }
 }
