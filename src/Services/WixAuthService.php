@@ -14,6 +14,12 @@ use StoresSuite\Wix\WixApi\V1\Oauth;
 
 class WixAuthService
 {
+    public function __construct(
+        private Oauth $oauthApi,
+        private WixAccessToken $wixAccessToken,
+        private WixRefreshToken $wixRefreshToken,
+    ) {}
+
     /**
      * Save refresh token
      *
@@ -40,17 +46,16 @@ class WixAuthService
      * Refresh token
      *
      * @param WixSite $wixSite
-     * @param Oauth $oauthApi
      * @return WixAccessToken
      * @throws APIException
      */
-    public function refreshToken(WixSite $wixSite, Oauth $oauthApi): WixAccessToken
+    public function refreshToken(WixSite $wixSite): WixAccessToken
     {
         if ($wixSite->accessToken->isValidFor(AccessTokenValidity::GRACE_PERIOD_BEFORE_EXPIRY)) {
             return $wixSite->accessToken;
         }
 
-        $apiResponse = $oauthApi->refreshAccessToken(
+        $apiResponse = $this->oauthApi->refreshAccessToken(
             Config::get('wix.client_id'),
             Config::get('wix.client_secret'),
             Crypt::decrypt($wixSite->refreshToken->refresh_token)
@@ -72,5 +77,30 @@ class WixAuthService
      * @param string $authorizationCode
      * @return array
      */
-    public function generateToken(string $authorizationCode): array {}
+    public function generateToken(string $authorizationCode): array
+    {
+        $apiResponse = $this->oauthApi->requestAccessToken($authorizationCode, Config::get('wix.client_id'), Config::get('wix.client_secret'));
+
+        if ($apiResponse['access_token'] ?? false) {
+            throw new APIException();
+        }
+
+        if ($apiResponse['refresh_token'] ?? false) {
+            throw new APIException();
+        }
+
+        $wixAccessToken = $this->wixAccessToken->create([
+            'access_token' => Crypt::encrypt($apiResponse['access_token']),
+            'expired_at' => Carbon::now()->addMinutes(AccessTokenValidity::VALIDITY_PERIOD->value),
+        ]);
+
+        $wixRefreshToken = $this->wixRefreshToken->create([
+            'refresh_token' => Crypt::encrypt($apiResponse['refresh_token']),
+        ]);
+
+        return [
+            'wix_refresh_token' => $wixRefreshToken,
+            'wix_access_token' => $wixAccessToken,
+        ];
+    }
 }
