@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('wix_installed_apps', function (Blueprint $table) {
             $table->id();
-            $table->sttring('name');
+            $table->string('name');
             $table->timestamps();
         });
     }
