@@ -92,8 +92,8 @@ class WixAuthService
         ]);
 
         return [
-            'wix_refresh_token' => $wixRefreshToken,
-            'wix_access_token' => $wixAccessToken,
+            $wixRefreshToken,
+            $wixAccessToken,
         ];
     }
 }
