@@ -34,7 +34,7 @@ class WixAppService
     {
         $appId = Config::get('wix.app_id');
         $redirectUrl = Config::get('wix.redirect_url');
-        $installationUrl = Config::get('wix.installation_url') . '?appId=' . $appId . '&redirectUrl=' . $redirectUrl;
+        $installationUrl = 'https://www.wix.com/installer/install?appId=' . $appId . '&redirectUrl=' . $redirectUrl;
 
         if ($token) {
             $installationUrl .= '&token=' . $token;

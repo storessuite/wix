@@ -39,18 +39,4 @@ return [
     */
 
     'redirect_url' => env('WIX_REDIRECT_URL'),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Installation URL
-    | Should be set in app's oauth settings.
-    | More details: https://dev.wix.com/docs/build-apps/develop-your-app/access/authentication/use-advanced-oauth
-    |--------------------------------------------------------------------------
-    | This is where Wix will redirect after user initiates installation. Wix
-    | will provide 'token'. We will need to redirect user to 'redirect_url'
-    | after this where users will need to accept permissions.
-    |
-    */
-
-    'installation_url' => env('WIX_INSTALLATION_URL'),
 ];
