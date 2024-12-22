@@ -7,7 +7,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\App;
-use StoresSuite\Wix\Contracts\Bridge;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Redirect;
 use StoresSuite\Wix\Jobs\FetchSite;
 use StoresSuite\Wix\Wix;
 
@@ -31,10 +32,9 @@ class AuthController extends Controller
      *
      * @param Request $request
      * @param Wix $wix
-     * @param Bridge $bridge
      * @return RedirectResponse
      */
-    public function redirect(Request $request, Wix $wix, Bridge $bridge): RedirectResponse
+    public function redirect(Request $request, Wix $wix): RedirectResponse
     {
         [$wixRefreshToken, $wixAccessToken] = $wix->auth()->generateToken($request->code);
         $wixInstance = $wix->instance()->fetchUsingToken($wixAccessToken);
@@ -42,16 +42,16 @@ class AuthController extends Controller
         $wixRefreshToken->setOwner($wixSite);
         $wixAccessToken->setOwner($wixSite);
 
-        if ($request->state) {
-            return $bridge->handleInstallation($wixSite, $request->state);
-        }
-
         App::make(Dispatcher::class)
             ->batch([
                 new FetchSite($wixSite)
             ])
             ->onQueue('wix')
             ->dispatch();
+
+        if ($request->state) {
+            return Redirect::to(Config::get('wix.complete_url') . '?state=' . $request->state . '&wixSiteId=' . $wixSite->id);
+        }
 
         return $wix->app()->closeWindow($wixAccessToken);
     }

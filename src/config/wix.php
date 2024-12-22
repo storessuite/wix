@@ -39,4 +39,15 @@ return [
     */
 
     'redirect_url' => env('WIX_REDIRECT_URL'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Complete URL
+    |--------------------------------------------------------------------------
+    | This is the final URL where user will be redirected after the installation
+    | is complete. You will receive 'state' and 'wixSiteId' as query params.
+    |
+    */
+
+    'complete_url' => env('WIX_COMPLETE_URL'),
 ];
