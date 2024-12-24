@@ -10,7 +10,7 @@ use Illuminate\Queue\SerializesModels;
 use StoresSuite\Wix\Models\WixSite;
 use StoresSuite\Wix\Services\WixSiteService;
 
-class FetchSite implements ShouldQueue
+class FetchSiteProperties implements ShouldQueue
 {
     use Batchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -24,6 +24,6 @@ class FetchSite implements ShouldQueue
      */
     public function handle(WixSiteService $wixSiteService): void
     {
-        $wixSiteService->fetch($this->wixSite);
+        $wixSiteService->fetchProperties($this->wixSite);
     }
 }

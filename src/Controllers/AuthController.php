@@ -14,6 +14,7 @@ use StoresSuite\Wix\Jobs\FetchInventories;
 use StoresSuite\Wix\Jobs\FetchProducts;
 use StoresSuite\Wix\Jobs\FetchPurchaseHistory;
 use StoresSuite\Wix\Jobs\FetchSite;
+use StoresSuite\Wix\Jobs\FetchSiteProperties;
 use StoresSuite\Wix\Jobs\FetchVariants;
 use StoresSuite\Wix\Wix;
 
@@ -51,6 +52,7 @@ class AuthController extends Controller
         App::make(Dispatcher::class)
             ->batch([
                 new FetchSite($wixSite),
+                new FetchSiteProperties($wixSite),
                 new FetchPurchaseHistory($wixSite),
                 new FetchCollections($wixSite),
                 new FetchProducts($wixSite),
