@@ -38,7 +38,8 @@ class AuthController extends Controller
     {
         [$wixRefreshToken, $wixAccessToken] = $wix->auth()->generateToken($request->code);
         $wixInstance = $wix->instance()->fetchUsingToken($wixAccessToken);
-        $wixSite = $wixInstance->extractSite();
+        $wixSiteDetails = $wixInstance->extractSite();
+        $wixSite = $wix->site()->create($wixSiteDetails);
         $wixRefreshToken->setOwner($wixSite);
         $wixAccessToken->setOwner($wixSite);
 

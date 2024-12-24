@@ -16,4 +16,11 @@ class WixRefreshToken extends Model
     {
         return $this->belongsTo(WixSite::class);
     }
+
+    public function setOwner(WixSite $wixSite): bool
+    {
+        return $this->update([
+            'wix_site_id' => $wixSite->id
+        ]);
+    }
 }

@@ -36,5 +36,11 @@ class WixInstance extends Model
         'site_siteId',
     ];
 
-    public function extractSite(): WixSite {}
+    public function extractSite(): array
+    {
+        return [
+            '_id' => $this->site_siteId,
+            'displayName' => $this->site_siteDisplayName,
+        ];
+    }
 }

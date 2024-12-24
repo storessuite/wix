@@ -41,4 +41,11 @@ class WixAccessToken extends Model
     {
         return Crypt::decrypt($this->access_token);
     }
+
+    public function setOwner(WixSite $wixSite): bool
+    {
+        return $this->update([
+            'wix_site_id' => $wixSite->id
+        ]);
+    }
 }
