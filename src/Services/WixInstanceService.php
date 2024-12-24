@@ -26,6 +26,8 @@ class WixInstanceService
 
     public function create(array $wixInstanceDetails): WixInstance
     {
-        return $this->wixInstance->query()->create($wixInstanceDetails);
+        return $this->wixInstance->query()->updateOrCreate([
+            'instance_instanceId' => $wixInstanceDetails['instance_instanceId'],
+        ], $wixInstanceDetails);
     }
 }

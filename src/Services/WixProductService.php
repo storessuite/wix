@@ -44,7 +44,9 @@ class WixProductService
 
     public function create(array $wixProductDetails): WixProduct
     {
-        return WixProduct::query()->create($wixProductDetails);
+        return WixProduct::query()->updateOrCreate([
+            '_id' => $wixProductDetails['_id'],
+        ], $wixProductDetails);
     }
 
     public function update(WixProduct $wixProduct, array $wixProductDetails): bool
