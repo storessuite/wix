@@ -22,6 +22,6 @@ class Instance
             'Authorization' => $token
         ];
 
-        return Http::withHeaders($headers)->post($endPoint)->json();
+        return Http::withHeaders($headers)->get($endPoint)->json();
     }
 }

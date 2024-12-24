@@ -14,9 +14,9 @@ class WixInstanceService
 
     public function __construct(private Instance $instanceApi, private WixInstance $wixInstance) {}
 
-    public function fetchUsingToken(WixAccessToken $token): WixInstance
+    public function fetchUsingToken(WixAccessToken $wixAccessToken): WixInstance
     {
-        $apiResponse = $this->instanceApi->getAppInstance($token->token());
+        $apiResponse = $this->instanceApi->getAppInstance($wixAccessToken->token());
 
         $apiResponse['instance'] ?? throw new APIException();
 
