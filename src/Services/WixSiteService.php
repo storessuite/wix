@@ -11,7 +11,7 @@ class WixSiteService
 {
     use ParsesInstance;
 
-    public function __construct(private WixSite $wixsite) {}
+    public function __construct(private WixSite $wixSite) {}
 
     public function create(array $wixSiteDetails): WixSite
     {
@@ -36,7 +36,7 @@ class WixSiteService
     public function findByInstance(string $instance): WixSite
     {
         $instanceId = $this->extractInstanceId($instance);
-        return $this->wixsite->query()
+        return $this->wixSite->query()
             ->whereHas('instance', function (Builder $instance) use ($instanceId) {
                 $instance->where('instance_instanceId', $instanceId);
             })
