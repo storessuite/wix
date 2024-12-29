@@ -132,7 +132,7 @@ class WixSite extends Model
 
     public function instance(): HasOne
     {
-        return $this->hasOne(WixSite::class, 'site_siteId', '_id');
+        return $this->hasOne(WixInstance::class, 'site_siteId', '_id');
     }
 
     public function getName(): string
