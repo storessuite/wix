@@ -3,6 +3,7 @@
 namespace StoresSuite\Wix\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class WixInstance extends Model
 {
@@ -36,11 +37,21 @@ class WixInstance extends Model
         'site_siteId',
     ];
 
+    /**
+     * Derive wix site details from wix instance details
+     *
+     * @return array
+     */
     public function extractSite(): array
     {
         return [
             '_id' => $this->site_siteId,
             'displayName' => $this->site_siteDisplayName,
         ];
+    }
+
+    public function site(): BelongsTo
+    {
+        return $this->belongsTo(WixSite::class, 'site_siteId', '_id');
     }
 }

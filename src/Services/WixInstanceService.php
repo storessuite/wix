@@ -5,6 +5,7 @@ namespace StoresSuite\Wix\Services;
 use StoresSuite\Wix\Exceptions\APIException;
 use StoresSuite\Wix\Models\WixAccessToken;
 use StoresSuite\Wix\Models\WixInstance;
+use StoresSuite\Wix\Models\WixSite;
 use StoresSuite\Wix\Services\Traits\InstanceResponseParser;
 use StoresSuite\Wix\WixApi\V1\Instance;
 
@@ -29,5 +30,15 @@ class WixInstanceService
         return $this->wixInstance->query()->updateOrCreate([
             'instance_instanceId' => $wixInstanceDetails['instance_instanceId'],
         ], $wixInstanceDetails);
+    }
+
+    public function findByInstanceId(string $instanceId): WixInstance
+    {
+        return $this->wixInstance->query()->where('instance_instanceId', $instanceId)->first();
+    }
+
+    public function relatedSite(WixInstance $wixInstance): WixSite
+    {
+        return $wixInstance->wixSite;
     }
 }

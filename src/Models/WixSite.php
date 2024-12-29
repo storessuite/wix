@@ -129,4 +129,9 @@ class WixSite extends Model
     {
         return $this->hasMany(WixAccessToken::class);
     }
+
+    public function instance(): HasOne
+    {
+        return $this->hasOne(WixSite::class, 'site_siteId', '_id');
+    }
 }
