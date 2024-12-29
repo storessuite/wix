@@ -37,8 +37,8 @@ class WixSiteService
     {
         $instanceId = $this->extractInstanceId($instance);
         return $this->wixSite->query()
-            ->whereHas('instance', function (Builder $instance) use ($instanceId) {
-                $instance->where('instance_instanceId', $instanceId);
+            ->whereHas('instance', function (Builder $query) use ($instanceId) {
+                $query->where('instance_instanceId', $instanceId);
             })
             ->first();
     }
