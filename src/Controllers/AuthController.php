@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redirect;
+use StoresSuite\Wix\Contracts\WixContract;
 use StoresSuite\Wix\Jobs\FetchCollections;
 use StoresSuite\Wix\Jobs\FetchInventories;
 use StoresSuite\Wix\Jobs\FetchProducts;
@@ -20,16 +21,20 @@ use StoresSuite\Wix\Wix;
 
 class AuthController extends Controller
 {
+    public function __construct(
+        private Wix $wix,
+        private WixContract $wixContract,
+    ) {}
+
     /**
      * App URL handler
      *
      * @param Request $request
-     * @param Wix $wix
      * @return RedirectResponse
      */
-    public function app(Request $request, Wix $wix): RedirectResponse
+    public function app(Request $request): RedirectResponse
     {
-        return $wix->app()->redirectToInstallationPage($request->token, $request->state);
+        return $this->wix->app()->redirectToInstallationPage($request->token, $request->state);
     }
 
     /**
@@ -37,15 +42,14 @@ class AuthController extends Controller
      * This is the final step during installation.
      *
      * @param Request $request
-     * @param Wix $wix
      * @return RedirectResponse
      */
-    public function redirect(Request $request, Wix $wix): RedirectResponse
+    public function redirect(Request $request): RedirectResponse
     {
-        [$wixRefreshToken, $wixAccessToken] = $wix->auth()->generateToken($request->code);
-        $wixInstance = $wix->instance()->fetchUsingToken($wixAccessToken);
+        [$wixRefreshToken, $wixAccessToken] = $this->wix->auth()->generateToken($request->code);
+        $wixInstance = $this->wix->instance()->fetchUsingToken($wixAccessToken);
         $wixSiteDetails = $wixInstance->extractSite();
-        $wixSite = $wix->site()->create($wixSiteDetails);
+        $wixSite = $this->wix->site()->create($wixSiteDetails);
         $wixRefreshToken->setOwner($wixSite);
         $wixAccessToken->setOwner($wixSite);
 
@@ -66,6 +70,7 @@ class AuthController extends Controller
             return Redirect::to(Config::get('wix.complete_url') . '?state=' . $request->state . '&wixSiteId=' . $wixSite->id);
         }
 
-        return $wix->app()->closeWindow($wixAccessToken);
+        $this->wixContract->handleInstallation($wixSite);
+        return $this->wix->app()->closeWindow($wixAccessToken);
     }
 }

@@ -17,6 +17,11 @@ WIX_CLIENT_SECRET=<Your wix app's client secret>
 ```
 4. Add a route `${APP_URL}/wix/oauth/complete`. You will receive `state` and `wixSiteId` at this endpoint after installation is complete. This can be a good place to create a connection between wix site and authenticated user.
 
+## Wix Contract
+You should create a class by implement WixContract and bind WixContract with the class.
+This is required when wix installation is complete and Wix package needs to access app's services
+to complete installation. Like creating users for wix site.
+
 ## Requirements
 1. PHP 8.3 or higher
 2. Laravel 11 or higher
