@@ -2,7 +2,9 @@
 
 namespace StoresSuite\Wix\Services;
 
+use Illuminate\Support\Facades\Config;
 use StoresSuite\Wix\Exceptions\APIException;
+use StoresSuite\Wix\Exceptions\WixException;
 use StoresSuite\Wix\Models\WixAccessToken;
 use StoresSuite\Wix\Models\WixInstance;
 use StoresSuite\Wix\Models\WixSite;
@@ -40,5 +42,21 @@ class WixInstanceService
     public function relatedSite(WixInstance $wixInstance): WixSite
     {
         return $wixInstance->wixSite;
+    }
+
+    public function findByInstance(string $instance): WixInstance
+    {
+        $appSecret = Config::get('wix.client_secret');
+        list($code, $data) = explode('.', $instance);
+
+        if (base64_decode(strtr($code, "-_", "+/")) != hash_hmac("sha256", $data, $appSecret, TRUE)) {
+            throw new WixException('Invalid instance');
+        }
+
+        if (($json = json_decode(base64_decode($data), true)) === null) {
+            throw new WixException('Invalid instance.');
+        }
+
+        return $this->findByInstanceId($json['instanceId']);
     }
 }
