@@ -40,6 +40,6 @@ class WixSiteService
             ->whereHas('instance', function (Builder $instance) use ($instanceId) {
                 $instance->where('instance_instanceId', $instanceId);
             })
-            ->sole();
+            ->first();
     }
 }
