@@ -134,4 +134,9 @@ class WixSite extends Model
     {
         return $this->hasOne(WixSite::class, 'site_siteId', '_id');
     }
+
+    public function getName(): string
+    {
+        return $this->name ?? $this->displayName ?? $this->__id;
+    }
 }
